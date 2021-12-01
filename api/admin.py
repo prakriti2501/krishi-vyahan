@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 @admin.register(Transport)
 class TransportAdmin(admin.ModelAdmin):
-    list_display = ('id','company_name','contact_no','profile_pic','address','availability')
+    list_display = ('id','company_name','contact_no','profile_pic','address','availability','category')
 
 @admin.register(Lab)
 class LabAdmin(admin.ModelAdmin):
