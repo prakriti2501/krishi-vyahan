@@ -76,4 +76,42 @@ class CropAnalysis(APIView):
                 
                 return Response({"status": "failed", "message": "in else"}, status=status.HTTP_400_BAD_REQUEST)
         
+
+summercrops = ['pigeonpeas' 'mothbeans' 'blackgram' 'mango' 'grapes' 'orange' 'papaya']
+wintercrops = ['maize' 'pigeonpeas' 'lentil' 'pomegranate' 'grapes' 'orange']
+rainycrops = ['rice' 'papaya' 'coconut']
         
+class CropSeasonPrediction(APIView):
+    serializer_class = CropSeasonPredictionSerializer
+    def post(self,request):
+        serializer = self.serializer_class(data = request.data)
+        
+        if serializer.is_valid():
+             
+                n= serializer.validated_data.get("nitrogen")
+                p=serializer.validated_data.get("phosphorus")
+                k=serializer.validated_data.get("potassium")
+                temp=serializer.validated_data.get("temperature")
+                
+                humidity=serializer.validated_data.get("humidity")
+                ph=serializer.validated_data.get("ph")
+                rainfall=serializer.validated_data.get("rainfall")
+
+                mj=joblib.load('crop_season_prediction')
+
+                temp=[n,p,k,temp,humidity,ph,rainfall]
+
+                ans=""
+                
+                predi=mj.predict([temp])
+                if predi in summercrops:
+                    ans = "Summer Crop Season"
+                elif predi in wintercrops:
+                    ans = "Winter Crop Season"
+                else:
+                    ans = "Rainy Crop Season"
+               
+                return Response({'predict':ans}, status=status.HTTP_200_OK)
+        else:
+                
+                return Response({"status": "failed", "message": "in else"}, status=status.HTTP_400_BAD_REQUEST)

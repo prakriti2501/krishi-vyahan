@@ -24,3 +24,12 @@ class CropAnalysisSerializer(serializers.Serializer):
     humidity = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
     ph = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
     rainfall = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
+
+class CropSeasonPredictionSerializer(serializers.Serializer):
+    nitrogen = serializers.IntegerField()
+    phosphorus = serializers.IntegerField()
+    potassium = serializers.IntegerField()
+    temperature = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
+    humidity = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
+    ph = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
+    rainfall = serializers.DecimalField(max_digits=10,decimal_places=5)#should be round to 2 decimal places
