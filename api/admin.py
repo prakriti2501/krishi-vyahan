@@ -13,3 +13,11 @@ class LabAdmin(admin.ModelAdmin):
 @admin.register(Insuarance)
 class CompanyRegisterAdmin(admin.ModelAdmin):
     list_display = ('id','company_name','company_code','contact_no','email','address')
+
+@admin.register(Seller)
+class SellerAdmin(admin.ModelAdmin):
+    list_display = ['id','seller_name','quantity','price','district','pincode','contact','profile_pic','country','price_with_transportation']
+
+@admin.register(Shop)
+class ShopAdmin(admin.ModelAdmin):
+    list_display = ['id','item_name','price','quantity','item_pic']

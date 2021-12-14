@@ -35,4 +35,21 @@ class Insuarance(models.Model):
     email = models.EmailField(max_length =50,null = True, blank=True)
     address = models.CharField(max_length =50,null = True, blank=True)
 
+class Seller(models.Model):
+    seller_name = models.CharField(max_length =255,null = True, blank=True)
+    quantity =  models.IntegerField()
+    price = models.CharField(max_length =50,null = True, blank=True)
+    district = models.CharField(max_length =50,null = True, blank=True)
+    pincode = models.CharField(max_length =50,null = True, blank=True)
+    contact = models.CharField(max_length =50,null = True, blank=True)
+    profile_pic = models.ImageField(upload_to='seller/profile_image/',default='default.ico',null = True, blank=True)
+    country = models.CharField(max_length =50,null = True, blank=True)
+    price_with_transportation = models.CharField(max_length =50,null = True, blank=True)
+
+class Shop(models.Model):
+    item_name = models.CharField(max_length =50,null = True, blank=True)
+    price = models.CharField(max_length =50,null = True, blank=True)
+    quantity = models.CharField(max_length =50,null = True, blank=True)
+    item_pic = models.ImageField(upload_to='shop/profile_image/',default='default.ico',null = True, blank=True)
+
 

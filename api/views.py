@@ -27,7 +27,7 @@ class TransportDetails(APIView):
         try:
             transports = Transport.objects.all()
             transport_data = TransportSerializer(transports,many=True)
-            return Response({'lab':transport_data.data})
+            return Response({'transport':transport_data.data})
         except Exception as e:
             print(e)
             return Response({'status': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -38,7 +38,7 @@ class InsuaranceDetails(APIView):
         try:
             insuarances = Insuarance.objects.all()
             insuarance_data = InsuaranceSerializer(insuarances,many=True)
-            return Response({'lab':insuarance_data.data})
+            return Response({'insurance':insuarance_data.data})
         except Exception as e:
             print(e)
             return Response({'status': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -77,9 +77,9 @@ class CropAnalysis(APIView):
                 return Response({"status": "failed", "message": "in else"}, status=status.HTTP_400_BAD_REQUEST)
         
 
-summercrops = ['pigeonpeas' 'mothbeans' 'blackgram' 'mango' 'grapes' 'orange' 'papaya']
-wintercrops = ['maize' 'pigeonpeas' 'lentil' 'pomegranate' 'grapes' 'orange']
-rainycrops = ['rice' 'papaya' 'coconut']
+summercrops = ['paddy','maize','brinjal','tomato','watermelon','bitter gourd','onion','pigeonpeas' 'mothbeans' 'blackgram' 'mango' 'grapes' 'orange' 'papaya']
+wintercrops = ['maize' 'pigeonpeas' 'lentil' 'pomegranate' 'grapes' 'orange','barley,','gram','mustard','oat','grapes','guava','lemon','radish']
+rainycrops = ['rice' 'papaya' 'coconut','cucumber','tomato','radish','beans','green chilies','okra','brinjal','cotton','sugarcane','tea']
         
 class CropSeasonPrediction(APIView):
     serializer_class = CropSeasonPredictionSerializer
@@ -101,17 +101,28 @@ class CropSeasonPrediction(APIView):
 
                 temp=[n,p,k,temp,humidity,ph,rainfall]
 
-                ans=""
+           
                 
                 predi=mj.predict([temp])
                 if predi in summercrops:
-                    ans = "Summer Crop Season"
+                    ans = summercrops
                 elif predi in wintercrops:
-                    ans = "Winter Crop Season"
+                    ans = wintercrops
                 else:
-                    ans = "Rainy Crop Season"
+                    ans = rainycrops
                
                 return Response({'predict':ans}, status=status.HTTP_200_OK)
         else:
                 
                 return Response({"status": "failed", "message": "in else"}, status=status.HTTP_400_BAD_REQUEST)
+
+class SellerView(APIView):
+    serializer_class = SellerSerializer
+    def get(self,request):
+        try:
+            sellers = Seller.objects.all()
+            seller_data = InsuaranceSerializer(sellers,many=True)
+            return Response({'seller':seller_data.data})
+        except Exception as e:
+            print(e)
+            return Response({'status': str(e)}, status=status.HTTP_400_BAD_REQUEST)
